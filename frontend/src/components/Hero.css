@@ -1,0 +1,14 @@
+.hero {
+  padding: var(--spacing-xl) 0;
+  max-width: 800px;
+}
+
+.hero-title {
+  margin-bottom: var(--spacing-sm);
+  color: var(--on-surface);
+}
+
+.hero-subtitle {
+  color: var(--on-surface-variant);
+  font: var(--body-lg);
+}

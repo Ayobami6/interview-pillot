@@ -1,0 +1,18 @@
+.generate-form {
+  margin-bottom: var(--spacing-lg);
+}
+
+.input-group {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.input-group input {
+  flex: 1;
+}
+
+@media (max-width: 600px) {
+  .input-group {
+    flex-direction: column;
+  }
+}
