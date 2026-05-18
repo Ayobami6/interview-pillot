@@ -17,7 +17,7 @@ function App() {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post('http://localhost:8001/api/v1/questions/generate', {
+      const response = await axios.post('http://interview-pillot-alb-1300503305.us-east-1.elb.amazonaws.com/api/v1/questions/generate', {
         role: role,
         count: 3
       });
