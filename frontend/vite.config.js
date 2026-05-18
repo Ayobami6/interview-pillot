@@ -4,4 +4,12 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://interview-pillot-alb-1300503305.us-east-1.elb.amazonaws.com',
+        changeOrigin: true
+      }
+    }
+  }
 })
