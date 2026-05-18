@@ -5,28 +5,34 @@ import GenerateForm from './components/GenerateForm';
 import QuestionCard from './components/QuestionCard';
 import './App.css';
 
-const MOCK_QUESTIONS = [
-  { id: 1, category: 'Technical', question: 'How do you optimize a React application with a large number of components?' },
-  { id: 2, category: 'Behavioral', question: 'Describe a time you had to deal with a difficult team member and how you resolved it.' },
-  { id: 3, category: 'Leadership', question: 'How do you mentor junior developers and ensure their growth within the team?' },
-  { id: 4, category: 'Product', question: 'How do you balance technical debt with the need for rapid feature development?' },
-];
+import axios from 'axios';
 
 function App() {
   const [activeTab, setActiveTab] = useState('generate');
-  const [questions, setQuestions] = useState(MOCK_QUESTIONS);
+  const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleGenerate = (role) => {
+  const handleGenerate = async (role) => {
     setLoading(true);
-    // Simulate AI generation
-    setTimeout(() => {
-      setQuestions([
-        { id: Date.now(), category: 'AI Generated', question: `As a ${role}, how would you approach a critical system failure during peak hours?` },
-        ...questions
-      ]);
+    setError(null);
+    try {
+      const response = await axios.post('http://localhost:8001/api/v1/questions/generate', {
+        role: role,
+        count: 3
+      });
+      
+      if (response.data && response.data.success) {
+        setQuestions(response.data.data);
+      } else {
+        setError('Failed to generate questions. Please try again.');
+      }
+    } catch (err) {
+      console.error("Error generating questions:", err);
+      setError('An error occurred while connecting to the server.');
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -48,9 +54,15 @@ function App() {
                 </div>
               )}
               
+              {error && (
+                <div className="error-message" style={{ color: 'red', marginBottom: '1rem' }}>
+                  {error}
+                </div>
+              )}
+              
               <div className="questions-grid">
-                {questions.map((q) => (
-                  <QuestionCard key={q.id} {...q} />
+                {questions.map((q, index) => (
+                  <QuestionCard key={q.id || index} question={q.text} category={q.category} difficulty={q.difficulty} />
                 ))}
               </div>
             </div>

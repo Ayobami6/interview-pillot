@@ -25,4 +25,4 @@ class GenerationRequest(BaseModel):
     """
 
     role: str
-    count: int = 5
+    count: int = 3

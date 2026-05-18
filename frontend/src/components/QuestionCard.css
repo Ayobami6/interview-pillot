@@ -15,12 +15,41 @@
   margin-bottom: var(--spacing-sm);
 }
 
+.tags {
+  display: flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+}
+
 .category-tag {
   background: var(--surface-container);
   color: var(--primary);
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: var(--radius-full);
   font: var(--label-sm);
+}
+
+.difficulty-tag {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font: var(--label-sm);
+  font-weight: 600;
+  border: 1px solid currentColor;
+}
+
+.difficulty-tag[data-level="easy"] {
+  color: #4CAF50; /* Green */
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.difficulty-tag[data-level="medium"] {
+  color: #FF9800; /* Orange */
+  background: rgba(255, 152, 0, 0.1);
+}
+
+.difficulty-tag[data-level="hard"] {
+  color: #F44336; /* Red */
+  background: rgba(244, 67, 54, 0.1);
 }
 
 .card-actions {

@@ -1,12 +1,28 @@
 from fastapi import FastAPI
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
 from api.routes import questions
 from api.middlewares.exceptions import exception_handler
 from api.schemas.service_response import ServiceException
+
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="Interview Pillot API",
     description="Backend for AI Interview Question Generator",
     version="1.0.0",
+)
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://localhost:5174"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Register exception handler
