@@ -8,6 +8,7 @@ from api.schemas.service_response import (
     ServiceErrorResponse,
 )
 
+
 async def exception_handler(
     request: Request, exc: ServiceException
 ) -> ServiceErrorResponse:
@@ -19,12 +20,14 @@ async def exception_handler(
             message=exc.message,
             status_code=exc.status_code,
             data=None,
-            traceback=getattr(exc, 'traceback', None),
+            traceback=getattr(exc, "traceback", None),
         ).model_dump(exclude_none=True),
     )
 
+
 def exception_before_advice(func):
     """Decorator to catch exceptions and raise ServiceException."""
+
     @wraps(func)
     async def wrapper(*args, **kwargs):
         try:
