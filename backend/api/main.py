@@ -1,14 +1,14 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
-
 from api.routes import questions
 from api.middlewares.exceptions import exception_handler
 from api.schemas.service_response import ServiceException
 
 from fastapi.middleware.cors import CORSMiddleware
+
+# Load environment variables
+load_dotenv()
+
 
 app = FastAPI(
     title="Interview Pillot API",
@@ -30,6 +30,7 @@ app.add_exception_handler(ServiceException, exception_handler)
 
 # Include routers
 app.include_router(questions.router, prefix="/api/v1")
+
 
 @app.get("/")
 async def health_check():
